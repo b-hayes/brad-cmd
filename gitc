@@ -1,0 +1,7 @@
+#IMPORTANT convert params into a string
+str="$*"
+#do git commands
+git add .
+git status
+git commit -m "$str"
+git push

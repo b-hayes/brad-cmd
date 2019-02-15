@@ -1,0 +1,8 @@
+#make sure only new lines become array
+IFS=$'\n'
+#for each file do something
+for F in `find . -maxdepth 1 -type f`
+do
+	echo "doing $@ on $F"
+	$@ $F
+done
