@@ -1,1 +1,10 @@
-/c/Program\ Files/JetBrains/PhpStorm\ 2018.2.2/bin/phpstorm64.exe \"$1\"
+#because I have different versions of php storm on seperate computers
+# if you have a different version please just add it to the list and push changes to git
+if [ -f /c/Program\ Files/JetBrains/PhpStorm\ 2018.2.2/bin/phpstorm64.exe ]
+then
+    /c/Program\ Files/JetBrains/PhpStorm\ 2018.2.2/bin/phpstorm64.exe \"$1\"
+	
+elif [ -f /c/Program\ Files/JetBrains/PhpStorm\ 2018.2.5/bin/phpstorm64.exe ]
+then
+	/c/Program\ Files/JetBrains/PhpStorm\ 2018.2.5/bin/phpstorm64.exe \"$1\"
+fi
