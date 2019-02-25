@@ -1,5 +1,5 @@
-#for D in `find . -type d`
-for D in `ls -d ./*/`
+#WARNING recursive
+for D in `find . -type d`
 do
 	echo "doing $@ in $D"
 	cd $D
