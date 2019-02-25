@@ -1,0 +1,4 @@
+#requires linux subsystme to be installed on windows
+#params:                             folder, enable|disable
+echo "$2 case sensitivity for '$1'"
+fsutil.exe file setCaseSensitiveInfo "$1" $2

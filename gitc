@@ -1,4 +1,4 @@
-#IMPORTANT convert params into a string
+#WARNING params convert into a string
 str="$*"
 #do git commands
 git add .
