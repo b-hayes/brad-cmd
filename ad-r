@@ -1,10 +1,15 @@
 #WARNING - RECURSIVE
-#make sure only new lines become array
-IFS=$'\n'
+STARTDIR=`pwd`
+#make sure only new lines become array for files with space in them
+IFS=$'\n\r'
 #for each DIR do something (not the current folder mindepth , exlcude hidden .folders)
 for D in `find . -mindepth 1 -type d -not -path '*/\.*'`
 do
-	echo "doing $@ on $D"
-	echo cd $D
-	"$@"
+	echo "doing $@ in $D"
+	cd $D
+	if ! "$@" ; then
+        echo "Recursive execution halted"
+        exit -1;
+    fi
+	cd $STARTDIR
 done

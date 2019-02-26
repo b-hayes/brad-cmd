@@ -1,4 +1,12 @@
 #requires linux subsystme to be installed on windows
 #params:                             folder, enable|disable
+
+if [ $# -eq 0 ]
+  then
+    echo "Enables per directory Case Sensitive file names."
+    echo "Usage: caseSensitive <directory> enable|disable"
+    exit -1
+fi
+
 echo "$2 case sensitivity for '$1'"
 fsutil.exe file setCaseSensitiveInfo "$1" $2
