@@ -1,8 +1,10 @@
-#WARNING recursive
-for D in `find . -type d -not -iwholename '*.git*'`
+#WARNING - RECURSIVE
+#make sure only new lines become array
+IFS=$'\n'
+#for each DIR do something (not the current folder mindepth , exlcude hidden .folders)
+for D in `find . -mindepth 1 -type d -not -path '*/\.*'`
 do
-	echo "doing $@ in $D"
-	cd $D
-	$@
-	cd ..
+	echo "doing $@ on $D"
+	echo cd $D
+	"$@"
 done
