@@ -1,5 +1,5 @@
 #for D in `find . -type d`
-for D in `ls -d ./*/`
+for D in `ls -d */`
 do
 	echo "doing $@ in $D"
 	cd $D

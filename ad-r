@@ -1,5 +1,5 @@
 #WARNING recursive
-for D in `find . -type d`
+for D in `find . -type d -not -iwholename '*.git*'`
 do
 	echo "doing $@ in $D"
 	cd $D
