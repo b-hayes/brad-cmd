@@ -1,0 +1,26 @@
+Verison=$(php -v | head -n 1 | cut -d " " -f 2 | cut -f1-2 -d".")
+
+if [ $# -eq 0 ]
+  then
+    echo "Current php is $Verison. Use: switchphp <MajorV.MinorV>"
+    exit 0
+fi
+
+
+if [ $1 == $Verison ]
+    then
+        echo "Your already running $Verison"
+        exit 0
+fi
+
+Prefix="/c/xampp"
+
+Directory="$Prefix-$1"
+
+#echo "looking for $Directory ..."
+if [ -d "$Directory" ]; then
+    #move the Current xampp
+    mv "$Prefix" "$Prefix-$Verison"
+    mv "$Directory" "$Prefix"
+    php -v
+fi
