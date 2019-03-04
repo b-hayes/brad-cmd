@@ -9,7 +9,7 @@ fi
 
 if [ $1 == $Verison ]
     then
-        echo "Your already running $Verison"
+        echo "Your already running $Verison 😜"
         exit 0
 fi
 
@@ -17,7 +17,7 @@ Prefix="/c/xampp"
 if [ "x$2"!="x" ]
     then
         Prefix="$2"
-        echo "Prefix changed to $2"
+        echo "⚙ Prefix changed to $2"
 fi
 
 Directory="$Prefix-$1"
@@ -30,4 +30,4 @@ if [ -d "$Directory" ]; then
     php -v
     exit 0
 fi
-echo "Couldnt find $Directory 😢"
+echo "Couldnt find $Directory 🤷‍"
