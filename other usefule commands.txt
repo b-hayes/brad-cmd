@@ -1,0 +1,2 @@
+#disable pagination of git output in terminal windows
+git config --global core.pager cat

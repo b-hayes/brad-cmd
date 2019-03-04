@@ -2,7 +2,7 @@ Verison=$(php -v | head -n 1 | cut -d " " -f 2 | cut -f1-2 -d".")
 
 if [ $# -eq 0 ]
   then
-    echo "Current php is $Verison. Use: switchphp <MajorV.MinorV>"
+    echo "Current php is $Verison. Use: switchphp <MajorV.MinorV> <Prefix=/c/xampp>"
     exit 0
 fi
 
@@ -14,6 +14,11 @@ if [ $1 == $Verison ]
 fi
 
 Prefix="/c/xampp"
+if [ "x$2"!="x" ]
+    then
+        Prefix="$2"
+        echo "Prefix changed to $2"
+fi
 
 Directory="$Prefix-$1"
 
@@ -23,4 +28,6 @@ if [ -d "$Directory" ]; then
     mv "$Prefix" "$Prefix-$Verison"
     mv "$Directory" "$Prefix"
     php -v
+    exit 0
 fi
+echo "Couldnt find $Directory 😢"
