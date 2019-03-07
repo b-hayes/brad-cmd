@@ -1,3 +1,4 @@
+#open php storm with this folder to edit the cmd's collection
 #equivilent of __DIR__ in php (path to folder containing this script)
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 storm $DIR

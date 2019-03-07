@@ -1,0 +1,45 @@
+if [ $# -eq 0 ]
+  then
+    me=`basename "$0"`
+    echo "Create a composer.json for MyTyreSite project."
+    echo "Usage: $me <ProjectNameSpace> <description=null>"
+    exit -1
+fi
+
+USERNAME=`git config user.name`
+USEREMAIL=`git config user.email`
+
+echo "{
+    \"name\": \"mytyresite/$PACKAGE\",
+    \"description\": \"$2\",
+    \"license\": \"proprietary\",
+    \"repositories\": [
+        {
+            \"type\": \"composer\",
+            \"url\": \"https://packages.mytyresite.com\"
+        }
+    ],
+    \"authors\": [
+        {
+            \"name\": \"$USERNAME\",
+            \"email\": \"$USEREMAIL\"
+        }
+    ],
+    \"require\": {
+        \"MyTyreSite/Framework\": \"^2.0.0\",
+        \"MyTyreSite/Router\": \"^2.0.3\"
+    },
+
+    \"minimum-stability\": \"dev\",
+    \"config\": {
+        \"platform\": {
+            \"php\": \"7.2.9\"
+        },
+        \"preferred-install\": \"source\",
+        \"secure-http\": false
+    },
+
+    \"autoload\": {
+        \"psr-4\": {\"MyTyreSite\\\\$1\\\\\": \"$FOLDER\"}
+    }
+}" > composer.json

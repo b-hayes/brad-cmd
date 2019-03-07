@@ -1,0 +1,34 @@
+{
+    "name": "mytyresite/",
+    "description": "collection of bash scripts for windows",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.mytyresite.com"
+        }
+    ],
+    "authors": [
+        {
+            "name": "bhayes",
+            "email": "bhayes@mytyresite.com"
+        }
+    ],
+    "require": {
+        "MyTyreSite/Framework": "^2.0.0",
+        "MyTyreSite/Router": "^2.0.3"
+    },
+
+    "minimum-stability": "dev",
+    "config": {
+        "platform": {
+            "php": "7.2.9"
+        },
+        "preferred-install": "source",
+        "secure-http": false
+    },
+
+    "autoload": {
+        "psr-4": {"MyTyreSite\\brads-cmd\\": ""}
+    }
+}
