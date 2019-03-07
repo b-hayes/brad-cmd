@@ -1,3 +1,4 @@
+
 if [ $# -eq 0 ]
   then
     me=`basename "$0"`
@@ -43,3 +44,161 @@ echo "{
         \"psr-4\": {\"MyTyreSite\\\\$1\\\\\": \"$FOLDER\"}
     }
 }" > composer.json
+echo "composer.json created"
+
+FILE='.gitignore'
+if [ -f $FILE ]; then
+   echo "File .gitignore file exists so I didnt create one. Delete/move it to get the .gitignore for new projects."
+else
+
+echo "
+######################################
+##    MYTYRESITE GENERATED FILES    ##
+######################################
+/MyTyreSite
+/mytyresite
+
+######################
+##    BUILD TOOLS   ##
+######################
+#vendor packaged JS and CSS src files
+/public_html/MyTyreSite
+#.css.map files should not be tracked
+*.css.map
+
+####################################
+##    DEV ONLY PACKAGE OVERRIDES  ##
+####################################
+vendor-local-dev-only
+
+#node js
+node_modules/*
+package-lock.json
+
+################################
+## Common SERVER cPanel files ##
+################################
+/public_html/cgi-bin
+#Git considers symlinks to be files, not directories
+/access-logs
+/.bash_logout
+/.bash_profile
+/.bashrc
+/.cagefs
+/.cl.selector
+/.contactemail
+/.cpanel
+/.cphorde
+/etc
+/.htpasswds
+/.kshrc
+/logs
+/mail
+/public_ftp
+/.spamassassin
+/.spamassassinenable
+/tmp
+#Git considers symlinks to be files, not directories
+/www
+/.zshrc
+/ssl
+
+
+
+############################
+## BEGIN COMPOSER IGNORES ##
+############################
+composer.phar
+/vendor/
+
+# Commit your application's lock file https://getcomposer.org/doc/01-basic-usage.md#commit-your-composer-lock-file-to-version-control
+# You may choose to ignore a library lock file http://getcomposer.org/doc/02-libraries.md#lock-file
+#composer.lock
+
+############################
+## BEGIN INTELLIJ IGNORES ##
+############################
+## just ignore all now
+.idea/*
+## .idea/webResources.xml appears after setting resource root.. might want to specifically track this file
+## for dir settings only. However, when I did track this file it cause a new clone opened in phpstorm to get confused.
+
+" > $FILE
+echo "$FILE created"
+fi
+
+
+DIR='public_html'
+if [ ! -d $DIR ]; then
+    mkdir $DIR
+    echo "Directory $DIR created"
+fi
+
+FILE='public_html/.htaccess'
+if [ -f $FILE ]; then
+   echo "File $FILE file exists so I didnt create one. Delete/move it to get the $FILE for new projects."
+else
+echo "
+#enable url rewriting
+RewriteEngine on
+
+Options +FollowSymlinks
+#stop file listings in folders
+Options -Indexes
+
+#force trailing slash
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)([^/])$ http://%{HTTP_HOST}/\$1\$2/ [L,R=301]
+
+#redirect to https://www if not a localhost
+RewriteCond %{SERVER_ADDR} !^127.0.0.1|::1
+RewriteCond %{SERVER_PORT} 80
+RewriteCond %{HTTP_HOST} !^www\.
+RewriteRule ^(.*)$ https://www.%{HTTP_HOST}/\$1 [R=301,L]
+
+#redirects ALL requests to the index.php file except for index.php and folders you want.
+RewriteCond %{REQUEST_URI} .*(\/|.htaccess|.htpasswd|.ini|.psd|.log|.sh|.bash|.php)$
+RewriteCond %{REQUEST_URI} !=/index.php
+RewriteRule .* /index.php [L,QSA]
+
+#redirects ALL requests to the index.php file except for index.php and folders you want.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !=/index.php
+RewriteRule .* /index.php [L,QSA]
+
+" > $FILE
+echo "$FILE created"
+fi
+
+
+DIR='php'
+if [ ! -d $DIR ]; then
+    mkdir $DIR
+    echo "Directory $DIR created"
+fi
+
+DIR='test'
+if [ ! -d $DIR ]; then
+    mkdir $DIR
+    echo "Directory $DIR created"
+fi
+
+
+DIR='src'
+if [ ! -d $DIR ]; then
+    mkdir $DIR
+    echo "Directory $DIR created"
+fi
+
+DIR='src/sass'
+if [ ! -d $DIR ]; then
+    mkdir $DIR
+    echo "Directory $DIR created"
+fi
+
+DIR='src/js'
+if [ ! -d $DIR ]; then
+    mkdir $DIR
+    echo "Directory $DIR created"
+fi
+
