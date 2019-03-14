@@ -7,6 +7,8 @@ if [ $# -eq 0 ]
     exit -1
 fi
 
+PACKAGE=`echo $1 | tr "[:upper:]" "[:lower:]"`
+
 USERNAME=`git config user.name`
 USEREMAIL=`git config user.email`
 
