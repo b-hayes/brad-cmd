@@ -7,10 +7,6 @@ if [ $# -eq 0 ]
     exit -1
 fi
 
-PACKAGE=`echo $1 | tr "[:upper:]" "[:lower:]"`
-
-PHPDIR='php'
-
 USERNAME=`git config user.name`
 USEREMAIL=`git config user.email`
 
@@ -41,7 +37,7 @@ echo "{
     },
 
     \"autoload\": {
-        \"psr-4\": {\"MyTyreSite\\\\$1\\\\\": \"$PHPDIR\"}
+        \"psr-4\": {\"MyTyreSite\\\\$1\\\\\": \"$FOLDER\"}
     }
 }" > composer.json
 echo "composer.json created"
