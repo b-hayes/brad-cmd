@@ -1,0 +1,30 @@
+{
+    "name": "mytyresite/test",
+    "description": "",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.mytyresite.com"
+        }
+    ],
+    "authors": [
+        {
+            "name": "bhayes",
+            "email": "bhayes@mytyresite.com"
+        }
+    ],
+    "require": {
+        "php": "^5.6.36"
+    },
+
+    "minimum-stability": "dev",
+    "config": {
+        "preferred-install": "source",
+        "secure-http": false
+    },
+
+    "autoload": {
+        "psr-4": {"MyTyreSite\\tEsT\\": ""}
+    }
+}

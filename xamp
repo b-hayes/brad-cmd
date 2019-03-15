@@ -1,0 +1,63 @@
+
+
+#first check if xampp is running
+running=`ps -ef |grep xampp`
+runningFile=""
+runningDir=""
+
+if [ ! -z "$running" ]; then
+    #remove everythign before the first /slash
+    runningFile="/${running#*/}"
+    #remove everythign after the next white space
+    runningFile="${runningFile%% *}"
+    #get the folder this files belongs to
+    runningDir=$(dirname "${runningFile}")
+fi
+
+#shutdown current one if a any param is entered at all
+if [ ! -z "$1" ] && [ ! -z "$runningDir" ]; then
+    echo "Shutting down $runningDir ..."
+    $runningDir/apache_stop.bat
+    $runningDir/mysql_stop.bat
+    runningDir=""
+fi
+
+#service stoped at this point exit if thats all they wanted
+if [ "$1" == "stop" ]; then
+    exit 0
+fi
+
+#no input let the user know what is currently running and the command usage
+if [ -z "$1" ]; then
+    msg="No xampp is running. "
+    if [ ! -z $runningDir ]; then
+        v=`basename "${runningDir}"`
+        msg="$v is running. "
+    fi
+    echo "$msg Usage: xamp <stop>|<PhpMajorV.PhpMinorV> <Prefix=/c/xampp-portable-win32->"
+    #echo "  Stop will stop whateever is currently running."
+    #echo "  Specifying a version will stop and then start up xampp in:"
+    #echo "      Prefix=/c/xampp-portable-win32-<PhpMajorV.PhpMinorV>*/"
+    exit 0
+fi
+
+PREFIX="/c/xampp-portable-win32-"
+if [ ! -z "$2" ]; then
+    PREFIX="$2"
+    echo "Prefix changed to $PREFIX"
+fi
+
+if [ ! -d $PREFIX$1* ]; then
+    echo "no xampp found for $PREFIX$1*"
+    exit 1
+fi
+
+#run commands in selected xampp
+cd $PREFIX$1*
+echo "Starting apache.."
+./apache_start.bat &
+echo "Starting MySQL.."
+./mysql_start.bat &
+
+#show process info
+ps -ef |grep xampp
