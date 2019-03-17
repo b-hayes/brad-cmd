@@ -27,6 +27,14 @@ if [ "$1" == "stop" ]; then
     exit 0
 fi
 
+PREFIX="/c/xampp-portable-win32-"
+
+#on my home computer I use X drive for everything so switch that here
+if  ls /x/apps/xampp-portable-win32-* 1> /dev/null 2>&1; then
+    PREFIX="/x/apps/xampp-portable-win32-"
+fi
+
+
 #no input let the user know what is currently running and the command usage
 if [ -z "$1" ]; then
     msg="No xampp is running. "
@@ -34,18 +42,18 @@ if [ -z "$1" ]; then
         v=`basename "${runningDir}"`
         msg="$v is running. "
     fi
-    echo "$msg Usage: xamp <stop>|<PhpMajorV.PhpMinorV> <Prefix=/c/xampp-portable-win32->"
+    echo "$msg Usage: xamp <stop>|<PhpMajorV.PhpMinorV> <Prefix=$PREFIX>"
     #echo "  Stop will stop whateever is currently running."
     #echo "  Specifying a version will stop and then start up xampp in:"
     #echo "      Prefix=/c/xampp-portable-win32-<PhpMajorV.PhpMinorV>*/"
     exit 0
 fi
 
-PREFIX="/c/xampp-portable-win32-"
 if [ ! -z "$2" ]; then
     PREFIX="$2"
     echo "Prefix changed to $PREFIX"
 fi
+
 
 if [ ! -d $PREFIX$1* ]; then
     echo "no xampp found for $PREFIX$1*"
@@ -59,6 +67,6 @@ echo "Starting apache.."
 echo "Starting MySQL.."
 ./mysql_start.bat &
 
-#show process info after processes have time to spit out garbage
+#show process info after xampp has time to spit out garbage
 sleep 0.5
 ps -ef |grep xampp
