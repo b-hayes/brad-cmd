@@ -68,5 +68,5 @@ echo "Starting MySQL.."
 ./mysql_start.bat &
 
 #show process info after xampp has time to spit out garbage
-sleep 0.5
+sleep 0.75
 ps -ef |grep xampp
