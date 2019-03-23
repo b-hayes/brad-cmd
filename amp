@@ -14,7 +14,7 @@ if [ ! -z "$running" ]; then
     runningDir=$(dirname "${runningFile}")
 fi
 
-#shutdown current one if a any param is entered at all
+#shutdown current one any param is entered at all (restarts if the same as already running one)
 if [ ! -z "$1" ] && [ ! -z "$runningDir" ]; then
     echo "Shutting down $runningDir ..."
     $runningDir/apache_stop.bat
