@@ -5,20 +5,11 @@ running=`ps -ef |grep xampp`
 runningFile=""
 runningDir=""
 
-if [ ! -z "$running" ]; then
-    #remove everythign before the first /slash
-    runningFile="/${running#*/}"
-    #remove everythign after the next white space
-    runningFile="${runningFile%% *}"
-    #get the folder this files belongs to
-    runningDir=$(dirname "${runningFile}")
-fi
-
 #shutdown current one any param is entered at all (restarts if the same as already running one)
-if [ ! -z "$1" ] && [ ! -z "$runningDir" ]; then
-    echo "Shutting down $runningDir ..."
-    $runningDir/apache_stop.bat
-    $runningDir/mysql_stop.bat
+if [ ! -z "$1" ] && [ ! -z "$running" ]; then
+    echo "Shutting down..."
+    echo $(ps -ef | grep xampp | awk '{print $2}')
+    kill -SIGTERM  $(ps -ef | grep xampp | awk '{print $2}')
     runningDir=""
 fi
 
@@ -37,15 +28,7 @@ fi
 
 #no input let the user know what is currently running and the command usage
 if [ -z "$1" ]; then
-    msg="No xampp is running. "
-    if [ ! -z $runningDir ]; then
-        v=`basename "${runningDir}"`
-        msg="$v is running. "
-    fi
-    echo "$msg Usage: xamp <stop>|<PhpMajorV.PhpMinorV> <Prefix=$PREFIX>"
-    #echo "  Stop will stop whateever is currently running."
-    #echo "  Specifying a version will stop and then start up xampp in:"
-    #echo "      Prefix=/c/xampp-portable-win32-<PhpMajorV.PhpMinorV>*/"
+    echo "Usage: amp <stop>|<PhpMajorV.PhpMinorV> <Prefix=$PREFIX>"
     ps -ef |grep xampp
     exit 0
 fi
@@ -55,23 +38,24 @@ if [ ! -z "$2" ]; then
     echo "Prefix changed to $PREFIX"
 fi
 
+DIR="$PREFIX$1*"
 
-if [ ! -d $PREFIX$1* ]; then
-    echo "no xampp found for $PREFIX$1*"
+if [ ! -d $DIR ]; then
+    echo "no xampp found for $DIR"
     exit 1
 fi
 
 #run commands in selected xampp
-cd $PREFIX$1*
-echo "Starting apache and MySQL from $(pwd)"
+cd $DIR
+rm -f nohup.out
+echo "Starting apache and MySQL.... Output will be stored in $(pwd)/nohup.out"
 
-#NOTE using nohup now to hide all the garbage messagesfrom xampp 
-#also stops all the extra bash.exe's from appearing in task manager
+#NOHUP all the extra bash.exe's from appearing in task manager
 
-nohup ./apache_start.bat 2>/dev/null &
-nohup ./mysql_start.bat 2>/dev/null  &
+nohup ./apache/bin/httpd.exe >nohup.out 2>&1 &
+nohup ./mysql/bin/mysqld.exe --defaults-file=mysql/bin/my.ini --standalone --console >nohup.out 2>&1 &
 
-#any output form the commands will be in nohup.out file in the xampp folder can be looked at later if erros.
+#any output from the commands will be in nohup.out file in the xampp folder can be looked at later if erros.
 
 #give them time to start..
 sleep 0.75
@@ -85,4 +69,3 @@ if [ $PSCount -lt 2  ]; then
     echo "-------- ERROR : one or more processes failed check for errors below --------"
     cat nohup.out
 fi
-rm -f nohup.out
