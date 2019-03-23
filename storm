@@ -1,3 +1,1 @@
-TARGET="$(pwd)/$@"
-cd /c/Program\ Files/JetBrains/PhpStorm*/bin
-nohup ./phpstorm64.exe "$TARGET" > /dev/null 2>&1 &
+nohup /c/Program\ Files/JetBrains/PhpStorm*/bin/phpstorm64.exe "$@" > /dev/null 2>&1 &
