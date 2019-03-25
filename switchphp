@@ -24,6 +24,12 @@ if [ ! -z "$2" ]; then
         echo "⚙ Prefix changed to $2"
 fi
 
+running=`ps -ef |grep $Prefix/php`
+if [ ! -z "$running" ]; then
+    echo "ERROR: I can't switch while php is running."
+    echo $running
+    exit 1
+fi
 
 Directory="$Prefix-$1"
 
