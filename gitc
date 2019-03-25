@@ -1,22 +1,6 @@
 #WARNING params convert into a string
 str="$*"
 
-#check heads are our of sync WARNING: this is not fool proof and needs testing.
-UPDATE=$(git remote -v update 2>&1)
-if [[ $UPDATE == *"[up to date]"* ]]; then
-    PULL="Were all good!"
-else
-    echo "Your branch is behind! Tring git pull first..."
-    PULL=$(git pull 2>&1)
-fi
-
-#try and pull if needed
-if [[ $PULL == *"Aborting"* ]]; then
-    echo "CANT COMMIT! Resolve the pull issues below:"
-    echo $PULL
-    exit -1
-fi
-
 #do the commit 
 git add .
 git status
