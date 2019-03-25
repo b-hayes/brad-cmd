@@ -13,7 +13,7 @@ if [ $1 == $Verison ]
         exit 0
 fi
 
-Prefix="/c/xampp"
+Prefix="/c/php"
 #on my home computer I use X drive instead of C drive
 if [ -d "/x/xampp" ]; then
     Prefix="/x/xampp"
@@ -31,8 +31,19 @@ Directory="$Prefix-$1"
 
 if [ -d "$Directory" ]; then
     #move the Current xampp
+
     mv "$Prefix" "$Prefix-$Verison"
+    if [ ! $? -eq 0 ]; then
+        echo "Switch FAILED"
+        exit 1
+    fi
+
     mv "$Directory" "$Prefix"
+    if [ ! $? -eq 0 ]; then
+        echo "Switch FAILED"
+        exit 1
+    fi
+
     php -v
     exit 0
 fi
