@@ -13,7 +13,7 @@ if [ $1 == $Verison ]
         exit 0
 fi
 
-Prefix="/c/php"
+Prefix="/c/xampp"
 #on my home computer I use X drive instead of C drive
 if [ -d "/x/xampp" ]; then
     Prefix="/x/xampp"
