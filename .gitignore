@@ -1,0 +1,13 @@
+#IDE Ignores
+.idea
+#anything created in tests
+test
+#any node js stuff tested as a command
+node_modules
+package.json
+package-lock.json
+
+#any composer packages tested as a command
+vendor
+composer.json
+composer.lock
