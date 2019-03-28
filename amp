@@ -58,14 +58,19 @@ nohup ./mysql/bin/mysqld.exe --defaults-file=mysql/bin/my.ini --standalone --con
 #any output from the commands will be in nohup.out file in the xampp folder can be looked at later if erros.
 
 #give them time to start..
-sleep 2.5
+#sleep 2.5 #note seems no matter how long we sleep at some pint its not long enough for mysql to start
 #show running process now
-ps -ef |grep xampp
+#ps -ef |grep xampp
 
-#check.. if process is missing the cat the nohup.out
+echo -n "waiting for mysql to start...";
+#while ! [[ -s nohup.out ]]; do
 running=`ps -ef |grep xampp`
-PSCount=$(wc -l <<< $running)
-if [ $PSCount -lt 2  ]; then
-    echo "-------- ERROR : one or more processes failed check for errors below --------"
-    cat nohup.out
-fi
+PSCount=0
+while [[ $PSCount -lt 2  ]]; do
+    running=`ps -ef |grep xampp`
+    PSCount=$(wc -l <<< $running)
+    echo -n "."
+    sleep 0.1
+done
+echo "done"
+ps -ef |grep xampp
