@@ -1,1 +1,2 @@
+#!/usr/bin/env bash
 nohup /c/Program\ Files/JetBrains/PhpStorm*/bin/phpstorm64.exe "$@" > /dev/null 2>&1 &

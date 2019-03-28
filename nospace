@@ -1,1 +1,2 @@
+#!/usr/bin/env bash
 mv "$1" `echo $1 | tr ' ' '-'`
