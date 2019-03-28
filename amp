@@ -1,4 +1,4 @@
-
+#!/usr/bin/env bash
 
 #first check if xampp is running
 running=`ps -ef |grep xampp`
@@ -58,7 +58,7 @@ nohup ./mysql/bin/mysqld.exe --defaults-file=mysql/bin/my.ini --standalone --con
 #any output from the commands will be in nohup.out file in the xampp folder can be looked at later if erros.
 
 #give them time to start..
-sleep 0.8
+sleep 2.5
 #show running process now
 ps -ef |grep xampp
 
