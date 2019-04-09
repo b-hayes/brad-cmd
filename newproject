@@ -12,6 +12,8 @@ PACKAGE=`echo $1 | tr "[:upper:]" "[:lower:]"`
 USERNAME=`git config user.name`
 USEREMAIL=`git config user.email`
 
+FOLDER="php"
+
 echo "{
     \"name\": \"mytyresite/$PACKAGE\",
     \"description\": \"$2\",
@@ -44,6 +46,9 @@ echo "{
 
     \"autoload\": {
         \"psr-4\": {\"MyTyreSite\\\\$1\\\\\": \"$FOLDER\"}
+    },
+    \"autoload-dev\": {
+        \"test\\\\\": \"test\"
     }
 }" > composer.json
 echo "composer.json created"
