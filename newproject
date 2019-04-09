@@ -38,7 +38,7 @@ echo "{
         \"platform\": {
             \"php\": \"7.2.9\"
         },
-        \"preferred-install\": \"source\",
+        \"preferred-install\": \"dist\",
         \"secure-http\": false
     },
 
