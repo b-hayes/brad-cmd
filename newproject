@@ -1,9 +1,11 @@
+#!/usr/bin/env bash
 
 if [ $# -eq 0 ]
   then
     me=`basename "$0"`
-    echo "Create a composer.json for MyTyreSite project."
+    echo "Create a composer.json and a bunch of starter folders/files for MyTyreSite framework project."
     echo "Usage: $me <ProjectNameSpace> <description=null>"
+    echo "Note: create a sub folder first and then execute the command."
     exit -1
 fi
 
