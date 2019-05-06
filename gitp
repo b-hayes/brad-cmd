@@ -1,0 +1,81 @@
+#!/bin/sh
+
+USER=$1
+BRANCH=$2
+GPATH=/home/$USER/public_html/
+
+#this path for testing only
+#GPATH=`PWD`
+
+ISGIT=`isgit $GPATH`
+
+echo $ISGIT
+
+
+if [[ "$ISGIT" = ".git" ]]; then
+    echo "$GPATH has the git folder then it must be older php5 template repo"
+else
+    echo "its probably new php7 framework style repo with the .git folder in the parent directory"
+    GPATH=/home/$USER
+    echo "Git path changed to $GPATH";
+fi
+
+#echo $USER
+
+RemoveKebab () {
+        #echo "Removing cache files"
+        #find "/home/$USER/public_html/web-cache" -name "*.cache" -type f
+        #read TEST
+        #if [ "$TEST" == "y" ]; then
+                echo "Removing web cache files"
+                find "/home/$USER/public_html/web-cache" -name "*.cache" -type f -delete
+                echo "Removing API cache files"
+                find "/home/$USER/public_html/api-cache" -name "*.cache" -type f -delete
+        #fi
+
+        #echo "Web cached files removed from the premises."
+}
+
+FixPermissions () {
+        echo "Fixing permissions"
+        shopt -s extglob
+        EXCLUDE_DIR="/home/$USER/public_html/!(api-cache)"
+        chown -R $USER:$USER $EXCLUDE_DIR
+        chown $USER:nobody $GPATH
+        echo "Done"
+}
+
+GitPull(){
+        if [ -z "$BRANCH" ]
+        then
+                git -C $GPATH pull
+        else
+                git -C $GPATH pull
+        fi
+}
+
+if id "$1" >/dev/null 2>&1; then
+        echo "Trying git pull"
+
+        #git -C $GPATH pull origin $USER
+        GitPull
+        git -C $GPATH status -uno
+        #echo "Would you like to commit the csvs?, and try another pull? y/n"
+        #read COMMIT
+        #if [ "$COMMIT" == "y" ]; then
+                #git -C $GPATH add csv/reviews.csv
+                #git -C $GPATH add csv/tyre-enquiries.csv
+                #git -C $GPATH add csv/wheel-enquiries.csv
+                #git -C $GPATH add csv/contact-enquiries.csv
+                #git -C $GPATH commit -m "Added reviews on remote server"
+                #git -C $GPATH checkout .
+                #git -C $GPATH pull origin $USER
+                #GitPull
+                #git -C $GPATH status -uno
+        #fi
+        RemoveKebab
+        #FixPermissions
+        fix-permissions $USER
+else
+        echo "User doesn't exist"
+fi

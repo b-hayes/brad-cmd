@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [[ ! -z $1 ]]; then
+    cd $1
+fi
+
+echo "Currently in `pwd`"
+
+if [ -d .git ]; then
+  #echo "git folder is in the current folder"
+  echo .git;
+else
+  #echo "The next parent git is located at: ";
+  git rev-parse --git-dir 2> /dev/null;
+fi;
