@@ -1,4 +1,13 @@
-#WARNING params convert into a string
+#!/usr/bin/env bash
+
+#NOTE: prevents user from doing commits in the wrong place
+if [[ ! -d .git ]]; then
+    echo "Um... did you mean to commit from a folder that's not a git root? Affects:"
+    git rev-parse --git-dir 2> /dev/null;
+    exit 3
+fi
+
+#WARNING all params convert into a string
 str="$*"
 
 #do the commit 

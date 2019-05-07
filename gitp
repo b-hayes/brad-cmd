@@ -5,19 +5,29 @@ BRANCH=$2
 GPATH=/home/$USER/public_html/
 
 #this path for testing only
-#GPATH=`PWD`
+#GPATH=`PWD`/$USER
 
-ISGIT=`isgit $GPATH`
+if [[ -z $1 ]]; then
+    echo "user account/repo name required"
+    exit 1
+fi
 
-echo $ISGIT
-
-
-if [[ "$ISGIT" = ".git" ]]; then
-    echo "$GPATH has the git folder then it must be older php5 template repo"
+if [ -d $GPATH/.git ]; then
+    echo "$GPATH has the git folder then it must be older php5 template repo all good lets go..."
+elif [ -d $GPATH/../.git ]; then
+    echo "ABORT: This is probably new php7 framework style repo. Please read:
+    https://mytyresite.atlassian.net/wiki/spaces/DEVELOPERS/pages/5013721/Deployment
+    for information on how to deploy framework projects."
+    exit 3
 else
-    echo "its probably new php7 framework style repo with the .git folder in the parent directory"
-    GPATH=/home/$USER
-    echo "Git path changed to $GPATH";
+    echo "ABORT: the git folder is not in the right place. I dont know what kind of setup this one is."
+    cd $GPATH
+    GITLOC=`git rev-parse --git-dir 2> /dev/null;`
+    if [ -z $GITLOC ]; then
+        GITLOC="NOT FOUND"
+    fi
+    echo "The nearest parent git folder is: $GITLOC"
+    exit 3
 fi
 
 #echo $USER
