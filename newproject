@@ -50,7 +50,7 @@ echo "{
         \"psr-4\": {\"MyTyreSite\\\\$1\\\\\": \"$FOLDER\"}
     },
     \"autoload-dev\": {
-        \"test\\\\\": \"test\"
+            \"psr-4\": {\"test\\\\\": \"test\"}
     }
 }" > composer.json
 echo "composer.json created"
