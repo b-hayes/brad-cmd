@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+#running=`ps -ef |grep mysql`
+running=$(ps -ef | grep mysql | awk '{print $6}')
+if [[ -z ${running} ]]; then
+    echo "MySql is not running! Try using the 'AMP' command :P"
+    exit 1
+fi
+
+exe="$(dirname ${running})/mysql.exe -u root -h localhost $@"
+
+echo $exe
+$exe

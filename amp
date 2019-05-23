@@ -2,8 +2,6 @@
 
 #first check if xampp is running
 running=`ps -ef |grep xampp`
-runningFile=""
-runningDir=""
 
 #shutdown current one any param is entered at all (restarts if the same as already running one)
 if [ ! -z "$1" ] && [ ! -z "$running" ]; then
