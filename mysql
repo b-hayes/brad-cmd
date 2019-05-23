@@ -8,5 +8,5 @@ fi
 
 exe="$(dirname ${running})/mysql.exe -u root -h localhost $@"
 
-echo $exe
+#echo $exe
 $exe
