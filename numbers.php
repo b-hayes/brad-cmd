@@ -34,6 +34,6 @@ foreach (str_split($fileName) as $char){
         $collect_ints = "";
     }
 }
-echo " >>> ",$formatted_file_name;
+echo "File renamed to: ",$formatted_file_name,"\n";
 $new_path = str_replace($fileName,$formatted_file_name,$path);
 rename($path,$new_path);
