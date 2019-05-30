@@ -1,3 +1,15 @@
+#!/usr/bin/env bash
+
+#warning/usage
+if [ -z $1 ];then
+	echo "ALL DIRECTORIES ( be careful with this one )"
+	echo "    USAGE: ad ....anything you want to execute in all directories in the current folder"
+	echo "        will cd into each folder and then executes the command from that directory"
+	echo "    can also be used in combination with the ALL FILES command af."
+	echo "    eg. ad af tolowercase //would execute on all files in all directories"
+	exit 0
+fi
+
 #for D in `find . -type d`
 for D in `ls -d ./*/`
 do
