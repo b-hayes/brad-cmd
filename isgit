@@ -12,4 +12,4 @@ if [ -d .git ]; then
 else
   #echo "The next parent git is located at: ";
   git rev-parse --git-dir 2> /dev/null;
-fi;
+fi;d

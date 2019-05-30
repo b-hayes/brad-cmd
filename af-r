@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #make sure only new lines become array
 IFS=$'\n'
 #for each file do something

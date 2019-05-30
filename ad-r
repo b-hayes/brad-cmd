@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #WARNING - RECURSIVE
 STARTDIR=`pwd`
 #make sure only new lines become array for files with space in them
