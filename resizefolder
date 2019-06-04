@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-php "/c/repo/php5/ImageMaker/cli/resizeFolder.php" "$@"
