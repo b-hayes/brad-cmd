@@ -9,3 +9,5 @@ fi
 
 git tag -d $1
 git push --delete origin $1
+
+#https://stackoverflow.com/questions/5480258/how-to-delete-a-remote-tag
