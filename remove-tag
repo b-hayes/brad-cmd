@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+#warning/usage
+if [ -z $1 ];then
+	echo "Removed tags from REMOTE as well as local be careful!"
+	echo "    USAGE: remove-tag [tagname]"
+	exit 0
+fi
+
+git tag -d $1
+git push --delete origin $1
