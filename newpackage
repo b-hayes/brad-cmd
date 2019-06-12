@@ -9,6 +9,7 @@ if [ $# -eq 0 ]
 fi
 
 PACKAGE=`echo $1 | tr "[:upper:]" "[:lower:]"`
+NameSpace=`echo "$1" | sed 's/-//' | sed 's/\.//'`
 
 USERNAME=`git config user.name`
 USEREMAIL=`git config user.email`
@@ -42,7 +43,7 @@ echo "{
     },
 
     \"autoload\": {
-        \"psr-4\": {\"MyTyreSite\\\\$1\\\\\": \"$FOLDER\"}
+        \"psr-4\": {\"MyTyreSite\\\\$NameSpace\\\\\": \"$FOLDER\"}
     },
     \"autoload-dev\": {
                 \"psr-4\": {\"test\\\\\": \"test\"}
